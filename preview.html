@@ -45,7 +45,7 @@ body { margin: 0; padding: 0; }
                 "maxzoom": 10,
             },
             "paint": {
-                'fill-color': ['get', 'fill'],//'rgb(53, 175, 109)',
+                'fill-color': ['get', 'fill'], // Get polygon color from geojson property 'fill'
                 'fill-opacity': 0.5,
                 'fill-outline-color': 'rgb(120, 120, 120)',
                 'fill-outline-opacity': 0.5
@@ -61,10 +61,9 @@ body { margin: 0; padding: 0; }
 
             // Populate the popup and set its coordinates
             // based on the feature found.
-            popup
-                .setLngLat(e.lngLat)
-                .setHTML(title)
-                .addTo(map);
+            popup.setLngLat(e.lngLat)
+                 .setHTML(title)
+                 .addTo(map);
         });
 
         map.on('mouseleave', 'uniqID', function() {

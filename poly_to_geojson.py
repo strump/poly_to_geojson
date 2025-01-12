@@ -124,6 +124,10 @@ def save_poly_to_single_geojson(borders_dir: str, output_file: str):
     geojson = polys_to_single_geojson(borders)
 
     print("Saving GEOJSON")
+    directory = os.path.dirname(output_file)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     with open(output_file, "wt") as fout:
         json.dump(geojson, fout, indent=2)
 
