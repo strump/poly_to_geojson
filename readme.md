@@ -7,8 +7,8 @@ Geojson file or multiple Geojson files.
 
 ```shell
 python poly_to_geojson.py /path/to/organicmaps/data/borders \
-       -o data/borders_all.geojson \ 
-       -d data/borders_geojson
+       -o om_borders/om_borders_all.geojson \ 
+       -d om_borders/om_borders_geojson
 ```
 
 If you need only single Geojson with all borders included:
@@ -16,14 +16,14 @@ If you need only single Geojson with all borders included:
 
 ```shell
 python poly_to_geojson.py /path/to/organicmaps/data/borders \
-       -o data/borders_all.geojson
+       -o om_borders/om_borders_all.geojson
 ```
 
 If you need multiple Geojson`s:
 
 ```shell
 python poly_to_geojson.py /path/to/organicmaps/data/borders \
-       -d data/borders_geojson
+       -d om_borders/om_borders_geojson
 ```
 
 ## generate_borders_tree
@@ -32,8 +32,8 @@ Use `generate_borders_tree.py` script to convert `countries.txt` file into
 JSON suitable for Vue.js frontend. (TODO: add link to frontend repo)
 
 ```shell
-generate_borders_tree.py /path/to/organicmaps/data/countries.txt \
-    -o data/borders_tree.json
+python generate_borders_tree.py /path/to/organicmaps/data/countries.txt \
+    -o om_borders/om_borders_tree.json
 ```
 
 ## Generate TopoJson
@@ -43,15 +43,15 @@ Single Geojson file with all borders could be converted to
 First install [`pytopojson`](https://pypi.org/project/pytopojson/). Then run
 
 ```shell
-geo2topo -o data/borders_all.topojson \
-    data/borders_all.geojson
+geo2topo -o om_borders/om_borders_all.topojson \
+    om_borders/om_borders_all.geojson
 ```
 
 ## Vector tiles
 
 Visualize all borders is hard problem for modern PC. It required a lot of
 memory to render 1148 border polygons on a map. To make it possible one can
-convert `data/borders_geojson/*.geojson` files into static vector tiles.
+convert `om_borders/om_borders_geojson/*.geojson` files into static vector tiles.
 After that MapBox.js would be able to show polygons with ease.
 
 First install [tippecanoe](https://github.com/mapbox/tippecanoe) tool.
@@ -59,13 +59,13 @@ First install [tippecanoe](https://github.com/mapbox/tippecanoe) tool.
 Then run it to generate static *.PBF files for vector layer:
 
 ```shell
-tippecanoe -e data/borders_tiles \
+tippecanoe -e om_borders/om_borders_tiles \
     --drop-densest-as-needed --extend-zooms-if-still-dropping \
     -Z0 -z10 \
     --no-tile-compression \
     -l borders \
     --allow-existing \
-    data/borders_geojson/*.geojson
+    om_borders/om_borders_geojson/*.geojson
 ```
 
 Generating deep zooms could take significant amount of time. Here are my benchmarks with
